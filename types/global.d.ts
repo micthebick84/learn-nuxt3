@@ -4,5 +4,5 @@ export { };
 
 
 declare global{
-  type Maybe<T> = Course|null|undefined
+  type Maybe<Course> = Course|null|undefined
 }
