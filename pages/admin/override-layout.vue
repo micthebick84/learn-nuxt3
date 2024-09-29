@@ -9,8 +9,8 @@
         </q-header>
       </template>
       <div class="q-my-xl text-center">
-        <div class="text-h4">레이아웃 재정의</div>
-        <p class="q-mt-sm text-grey-8">Admin Layout</p>
+        <PageTitle title="레이아웃 재정의" />
+        <PageDescription description="Admin Layout" />
       </div>
     </NuxtLayout>
   </div>
