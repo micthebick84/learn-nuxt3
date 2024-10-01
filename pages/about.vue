@@ -11,8 +11,26 @@
         <br />
         <NuxtLink prefetched-class="bg-yellow" to="/">NuxtLink Home</NuxtLink>
         <NuxtLink to="https://youtube.com/@gymcoding">YouTube</NuxtLink>
+        <div class="q-gutter-y-sm q-mt-md">
+          <div class="text-subtitle1 text-weight-bold">useState('counter')</div>
+          <div>
+            counter: {{ counter }}
+            <q-btn
+              label="counter"
+              color="primary"
+              dense
+              no-caps
+              @click="counter++"
+            />
+          </div>
+          <div>
+            <q-btn label="clear" @click="clearNuxtState()" />
+          </div>
+        </div>
       </div>
     </div>
   </q-page>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const counter = useState<number>('counter', () => 1);
+</script>

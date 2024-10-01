@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <q-header elevated class="bg-dark text-white">
       <q-toolbar>
-        <q-toolbar-title>Vue Master Course</q-toolbar-title>
+        <q-toolbar-title>Vue Master Course </q-toolbar-title>
         <NuxtLink v-slot="{ navigate }" custom to="/">
           <q-btn stretch flat :label="$t('home')" no-caps @click="navigate" />
         </NuxtLink>
@@ -69,7 +69,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-const { authUser, isAuthenticated } = useAuthUser();
+const authUser = useAuthUser();
+const isAuthenticated = useAuthenticated();
 const { signOut } = useAuth();
 
 const pageContainerStyle = computed(() => ({
