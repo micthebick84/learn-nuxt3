@@ -42,20 +42,35 @@
         </q-btn-dropdown>
       </q-toolbar>
       <q-separator dark vertical />
-      <NuxtLink v-slot="{ navigate }" custom to="/login">
+      <NuxtLink
+        v-if="!isAuthenticated"
+        v-slot="{ navigate }"
+        custom
+        to="/login"
+      >
         <q-btn stretch flat :label="$t('login')" no-caps @click="navigate()" />
       </NuxtLink>
-      <NuxtLink v-slot="{ navigate }" custom to="/">
-        <q-btn stretch flat :label="$t('logout')" no-caps @click="navigate()" />
-      </NuxtLink>
+      <q-btn
+        v-else
+        stretch
+        flat
+        :label="$t('logout')"
+        no-caps
+        @click="signOut()"
+      />
     </q-header>
     <q-page-container :style="pageContainerStyle">
+      <q-banner v-if="isAuthenticated" class="bg-primary text-white" />
+      {{ authUser }}
       <slot></slot>
     </q-page-container>
   </q-layout>
 </template>
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+
+const { authUser, isAuthenticated } = useAuthUser();
+const { signOut } = useAuth();
 
 const pageContainerStyle = computed(() => ({
   maxWidth: '1080px',

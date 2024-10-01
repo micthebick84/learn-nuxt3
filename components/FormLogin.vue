@@ -2,7 +2,7 @@
   <q-form class="q-gutter-lg" @submit.prevent="handleLoginSubmit">
     <q-input v-model="form.email" filled label="email" />
     <q-input v-model="form.passwowrd" filled type="password" label="password" />
-    <div v-if="error" class="text-red text-center">{{ error }}</div>
+    <div v-if="error" class="text-red text-center">{{ error.message }}</div>
     <div class="q-mt-lg">
       <q-btn
         class="full-width"
@@ -18,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+const { signIn } = useAuth();
+
 const emit = defineEmits<{
   success: [];
 }>();
@@ -36,6 +38,7 @@ const handleLoginSubmit = () => {
     loading.value = true;
 
     // login business logic
+    signIn(form.value.email, form.value.passwowrd);
 
     emit('success');
   } catch (err: unknown) {

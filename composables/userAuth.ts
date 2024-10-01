@@ -3,7 +3,8 @@ import { getUser } from './usersData';
 import type { UserWithoutPassword } from '~/types/user';
 
 export const useAuth = () => {
-  const authUser = ref<Maybe<UserWithoutPassword>>(null);
+  // const authUser = ref<Maybe<UserWithoutPassword>>(null);
+  const authUser = useAuthUser();
 
   const signIn = (email: string, password: string) => {
     const foundUser = getUser(email, password);
