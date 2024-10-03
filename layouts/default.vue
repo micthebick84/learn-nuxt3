@@ -42,6 +42,7 @@
         </q-btn-dropdown>
       </q-toolbar>
       <q-separator dark vertical />
+      <!-- <ClientOnly> -->
       <NuxtLink
         v-if="!isAuthenticated"
         v-slot="{ navigate }"
@@ -58,10 +59,14 @@
         no-caps
         @click="signOut()"
       />
+      <!-- </ClientOnly> -->
     </q-header>
     <q-page-container :style="pageContainerStyle">
-      <q-banner v-if="isAuthenticated" class="bg-primary text-white" />
-      {{ authUser }}
+      <!-- <ClientOnly> -->
+      <q-banner v-if="isAuthenticated" class="bg-primary text-white">
+        {{ authUser }}
+      </q-banner>
+      <!-- </ClientOnly> -->
       <slot></slot>
     </q-page-container>
   </q-layout>
@@ -69,9 +74,14 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-const authUser = useAuthUser();
-const isAuthenticated = useAuthenticated();
-const { signOut } = useAuth();
+// const authUser = useAuthUser();
+// const isAuthenticated = useAuthenticated();
+// const { signOut } = useAuth();
+
+const authStore = useAuthStore();
+
+const { user: authUser, isAuthenticated } = storeToRefs(authStore);
+const { signOut } = authStore;
 
 const pageContainerStyle = computed(() => ({
   maxWidth: '1080px',
@@ -95,4 +105,6 @@ const { locale } = useI18n();
 const selectedLanguageName = computed(
   () => languages.value.find((lang) => lang.code === locale.value)?.name,
 );
+
+watch(locale, (val) => (useCookie('locale').value = val));
 </script>
