@@ -27,10 +27,24 @@
             <q-btn label="clear" @click="clearNuxtState()" />
           </div>
         </div>
+        <div class="q-gutter-y-sm q-mt-md">
+          <div class="text-subtitle1 text-weight-bold">
+            useCounterStore('counter')
+          </div>
+          <div>counter: {{ count }}</div>
+          <div>counter: {{ doubleCount }}</div>
+          <div>
+            <q-btn label="increment" @click="counterStore.increment()" />
+          </div>
+        </div>
       </div>
     </div>
   </q-page>
 </template>
 <script setup lang="ts">
 const counter = useState<number>('counter', () => 1);
+// const sameCounter = useState<number>('counter');
+
+const counterStore = useCounterStore();
+const { count, doubleCount } = storeToRefs(counterStore);
 </script>
